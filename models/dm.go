@@ -31,11 +31,11 @@ type CommonParams struct {
 	RequestStart string `json:"requestStart"`
 }
 
-func Build() *CommonParams {
+func Build() map[string]interface{} {
 	t := time.Now()
 	millis := t.UnixNano() / int64(time.Millisecond)
 
-	return &CommonParams{
+	commonParams := &CommonParams{
 		Jsv:          "2.7.2",
 		AppKey:       "12574478",
 		Type:         "originaljson",
@@ -46,4 +46,8 @@ func Build() *CommonParams {
 		T:            fmt.Sprintf("%d", millis),
 		RequestStart: fmt.Sprintf("%d", millis-1),
 	}
+	jsonBytes, _ := json.Marshal(commonParams)
+	params := make(map[string]interface{})
+	json.Unmarshal(jsonBytes, &params)
+	return params
 }

@@ -5,7 +5,6 @@ go 1.20
 require (
 	github.com/fatih/structs v1.1.0
 	github.com/go-yaml/yaml v2.1.0+incompatible
-	github.com/mitchellh/mapstructure v1.5.0
 )
 
 require (

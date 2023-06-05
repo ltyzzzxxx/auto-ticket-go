@@ -18,5 +18,5 @@ func main() {
 	dt := service.NewDmTicket(&conf.Accounts[0])
 	fmt.Printf("dt: %v \n", dt)
 	fmt.Println("******************")
-	dt.GetTicketInfo("721204441928")
+	dt.GetTicketInfo("710947802955")
 }

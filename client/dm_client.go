@@ -2,6 +2,7 @@ package client
 
 import (
 	"auto-ticket-go/models"
+	"bytes"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
@@ -46,8 +47,9 @@ type DmClient struct {
 
 // 封装统一请求
 func (dm *DmClient) Request(cookie string, api string, params map[string]string, data map[string]interface{}) models.DmRes {
-	// 构造请求
-	req, _ := http.NewRequest("POST", api, nil)
+
+	fmt.Printf("初始params %v\n", params)
+
 	// 设置header
 	tokenClient := TokenClient{}
 	bxToken := tokenClient.GetBxToken()
@@ -57,7 +59,7 @@ func (dm *DmClient) Request(cookie string, api string, params map[string]string,
 	headers.Set("Origin", baseURL)
 	headers.Set("Referer", baseURL)
 	headers.Set("User-Agent", "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3")
-	headers.Set("Content-Type", "multipart/form-data")
+	headers.Set("Content-Type", "application/x-www-form-urlencoded")
 	cookieValue := strings.Join([]string{
 		cookie,
 		"_m_h5_tk_enc=" + dmToken.EncToken,
@@ -66,7 +68,6 @@ func (dm *DmClient) Request(cookie string, api string, params map[string]string,
 	fmt.Printf("cookieValue %v\n", cookieValue)
 	fmt.Println()
 	headers.Set("Cookie", cookieValue)
-	req.Header = headers
 	// 构造签名sign
 	dataJson, _ := json.Marshal(data)
 	s := fmt.Sprintf("%s&%s&%s&%s",
@@ -78,24 +79,30 @@ func (dm *DmClient) Request(cookie string, api string, params map[string]string,
 	// 构造请求体
 	form := url.Values{}
 	form.Add("data", string(dataJson))
-	req.PostForm = form
+	body := bytes.NewBufferString(form.Encode())
 	fmt.Printf("dataJson %v\n", string(dataJson))
 	fmt.Println()
 	// 构造请求参数
-	params["sign"] = sign
-	params["bx-umidtoken"] = bxToken
-	params["bx-ua"] = tokenClient.GetBxUa()
+	p := url.Values{}
+	for k, v := range params {
+		p.Add(k, v)
+	}
+	p.Add("sign", sign)
+	p.Add("bx-umidtoken", bxToken)
+	p.Add("bx-ua", tokenClient.GetBxUa())
 	fmt.Printf("sign %v\n", sign)
 	fmt.Println()
-	fmt.Printf("bx-umidtoken %v\n", params["bx-umidtoken"])
+	fmt.Printf("bx-umidtoken %v\n", p["bx-umidtoken"])
 	fmt.Println()
-	fmt.Printf("bx-ua %v\n", params["bx-ua"])
+	fmt.Printf("bx-ua %v\n", p["bx-ua"])
 	fmt.Println()
-	values := url.Values{}
-	for k, v := range params {
-		values.Set(k, v)
-	}
-	req.URL.RawQuery = values.Encode()
+	// 构造请求
+	req, _ := http.NewRequest("POST", api+"?"+p.Encode(), body)
+	req.Header = headers
+	fmt.Printf("request url %v\n", req.URL)
+	fmt.Printf("request header %v\n", req.Header)
+	fmt.Printf("request body %v\n", req.Body)
+	fmt.Println()
 	// 发送请求
 	resp, err := http.DefaultClient.Do(req)
 	fmt.Println(resp)

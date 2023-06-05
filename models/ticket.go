@@ -2,7 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"github.com/fatih/structs"
+	"fmt"
 )
 
 type TicketInfoForm struct {
@@ -15,16 +15,19 @@ func BuildTicketInfoForm(ticketID string) map[string]interface{} {
 		ItemID:    ticketID,
 		DMChannel: "damai@damaih5_h5",
 	}
-	return structs.Map(form)
+	jsonBytes, _ := json.Marshal(form)
+	params := make(map[string]interface{})
+	json.Unmarshal(jsonBytes, &params)
+	return params
 }
 
 type TicketInfoParams struct{}
 
 func BuildTicketInfoParams() map[string]interface{} {
-	commonParams := Build()
-	params := structs.Map(&commonParams)
+	params := Build()
 	params["api"] = "mtop.alibaba.damai.detail.getdetail"
 	params["v"] = "1.2"
+	fmt.Printf("构造ticket：%v", params)
 	return params
 }
 

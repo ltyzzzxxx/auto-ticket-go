@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -14,7 +15,7 @@ const (
 type TokenClient struct{}
 
 func (tc *TokenClient) getValue(key string) string {
-	api := "http://localhost:8123/"
+	api := "http://localhost:8123"
 	query := api + "?key=" + key
 	resp, err := http.Get(query)
 	if err != nil {
@@ -31,6 +32,7 @@ func (tc *TokenClient) getValue(key string) string {
 		return ""
 	}
 	data = data["data"].(map[string]interface{})
+	fmt.Printf("token客户端 %v\n", data["value"].(string))
 	return data["value"].(string)
 }
 
