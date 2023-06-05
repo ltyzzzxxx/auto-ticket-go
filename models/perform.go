@@ -7,27 +7,24 @@ import (
 
 type PerformParams struct{}
 
-func BuildPerformParams() (map[string]interface{}, error) {
+func BuildPerformParams() map[string]interface{} {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["api"] = "mtop.alibaba.detail.subpage.getdetail"
 	params["method"] = "GET"
 	params["v"] = "2.0"
-	return params, nil
+	return params
 }
 
 type PerformForm struct{}
 
-func BuildPerformForm(ticketId string, performId string) (map[string]interface{}, error) {
+func BuildPerformForm(ticketId string, performId string) map[string]interface{} {
 	exParams := map[string]interface{}{
 		"dataType":       2,
 		"dataId":         performId,
 		"privilegeActId": "",
 	}
-	exParamsString, err := json.Marshal(exParams)
-	if err != nil {
-		return nil, err
-	}
+	exParamsString, _ := json.Marshal(exParams)
 
 	data := map[string]interface{}{
 		"itemId":    ticketId,
@@ -36,7 +33,7 @@ func BuildPerformForm(ticketId string, performId string) (map[string]interface{}
 		"exParams":  string(exParamsString),
 		"dmChannel": "damai@damaih5_h5",
 	}
-	return data, nil
+	return data
 }
 
 type Sku struct {

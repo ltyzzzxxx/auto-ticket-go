@@ -4,6 +4,7 @@ import (
 	"auto-ticket-go/client"
 	"auto-ticket-go/config"
 	"auto-ticket-go/models"
+	"encoding/json"
 	"fmt"
 	"strings"
 )
@@ -41,7 +42,11 @@ func (dt *DmTicket) GetTicketInfo(ticketID string) models.TicketInfo {
 	fmt.Printf("data: %v \n", data)
 	fmt.Println("******************")
 	res := dt.client.Request(dt.cookie, url, p, data)
-	fmt.Printf("res: %v \n", res)
+	//fmt.Printf("res: %v \n", res)
 	fmt.Println("******************")
+	//fmt.Println(string(res.Data))
+	var resultMap map[string]interface{}
+	json.Unmarshal(res.Data, &resultMap)
+	fmt.Println(resultMap)
 	return models.TicketInfo{}
 }

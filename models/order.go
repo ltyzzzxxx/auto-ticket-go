@@ -8,7 +8,7 @@ import (
 
 type OrderParams struct{}
 
-func BuildOrderParams() (map[string]interface{}, error) {
+func BuildOrderParams() map[string]interface{} {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["v"] = "4.0"
@@ -18,12 +18,12 @@ func BuildOrderParams() (map[string]interface{}, error) {
 	params["globalCode"] = "ali.china.damai"
 	params["tb_eagleeyex_scm_project"] = "20190509-aone2-join-test"
 	params["AntiFlood"] = true
-	return params, nil
+	return params
 }
 
 type OrderForm struct{}
 
-func BuildOrderForm(itemID *string, skuID *string, byNum int) (map[string]interface{}, error) {
+func BuildOrderForm(itemID *string, skuID *string, byNum int) map[string]interface{} {
 	extParams := map[string]interface{}{
 		"channel":        "damai_app",
 		"damai":          "1",
@@ -34,10 +34,7 @@ func BuildOrderForm(itemID *string, skuID *string, byNum int) (map[string]interf
 		"customerType":   "default",
 	}
 
-	extParamsJSON, err := json.Marshal(extParams)
-	if err != nil {
-		return nil, err
-	}
+	extParamsJSON, _ := json.Marshal(extParams)
 
 	data := map[string]interface{}{
 		"buyNow":    true,
@@ -46,7 +43,7 @@ func BuildOrderForm(itemID *string, skuID *string, byNum int) (map[string]interf
 		"dmChannel": "damai@damaih5_h5",
 	}
 
-	return data, nil
+	return data
 }
 
 type OrderInfoContainer struct{}
@@ -92,7 +89,7 @@ type OrderInfo struct {
 
 type SubmitOrderParams struct{}
 
-func BuildSubmitOrderParams(submitref string) (map[string]interface{}, error) {
+func BuildSubmitOrderParams(submitref string) map[string]interface{} {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["api"] = "mtop.trade.order.create.h5"
@@ -105,5 +102,5 @@ func BuildSubmitOrderParams(submitref string) (map[string]interface{}, error) {
 	params["ttid"] = "#t#ip##_h5_2014"
 	params["globalCode"] = "ali.china.damai"
 	params["tb_eagleeyex_scm_project"] = "20190509-aone2-join-test"
-	return params, nil
+	return params
 }

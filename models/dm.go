@@ -13,10 +13,10 @@ type DmToken struct {
 }
 
 type DmRes struct {
-	Api  *string          `json:"api,omitempty"`
-	Data *json.RawMessage `json:"data,omitempty"`
-	Ret  []string         `json:"ret,omitempty"`
-	V    *string          `json:"v,omitempty"`
+	Api  *string         `json:"api,omitempty"`
+	Data json.RawMessage `json:"data,omitempty"`
+	Ret  []string        `json:"ret,omitempty"`
+	V    *string         `json:"v,omitempty"`
 }
 
 type CommonParams struct {
