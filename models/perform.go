@@ -5,9 +5,9 @@ import (
 	"github.com/fatih/structs"
 )
 
-type PerformParams struct {}
+type PerformParams struct{}
 
-func (pp *PerformParams) build() (map[string]interface{}, error) {
+func BuildPerformParams() (map[string]interface{}, error) {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["api"] = "mtop.alibaba.detail.subpage.getdetail"
@@ -16,12 +16,12 @@ func (pp *PerformParams) build() (map[string]interface{}, error) {
 	return params, nil
 }
 
-type PerformForm struct {}
+type PerformForm struct{}
 
-func (pf *PerformForm) build(ticketId string, performId string) (map[string]interface{}, error)  {
+func BuildPerformForm(ticketId string, performId string) (map[string]interface{}, error) {
 	exParams := map[string]interface{}{
-		"dataType":      2,
-		"dataId":        performId,
+		"dataType":       2,
+		"dataId":         performId,
 		"privilegeActId": "",
 	}
 	exParamsString, err := json.Marshal(exParams)
@@ -30,11 +30,11 @@ func (pf *PerformForm) build(ticketId string, performId string) (map[string]inte
 	}
 
 	data := map[string]interface{}{
-		"itemId":     ticketId,
-		"bizCode":    "ali.china.damai",
-		"scenario":   "itemsku",
-		"exParams":   string(exParamsString),
-		"dmChannel":  "damai@damaih5_h5",
+		"itemId":    ticketId,
+		"bizCode":   "ali.china.damai",
+		"scenario":  "itemsku",
+		"exParams":  string(exParamsString),
+		"dmChannel": "damai@damaih5_h5",
 	}
 	return data, nil
 }
@@ -55,4 +55,3 @@ type Perform struct {
 type PerformInfo struct {
 	Perform Perform `json:"perform"`
 }
-

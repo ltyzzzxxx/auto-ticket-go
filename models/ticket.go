@@ -10,22 +10,22 @@ type TicketInfoForm struct {
 	DMChannel string `json:"dmChannel"`
 }
 
-func (f *TicketInfoForm) build(ticketID string) (map[string]interface{}, error) {
+func BuildTicketInfoForm(ticketID string) map[string]interface{} {
 	form := TicketInfoForm{
 		ItemID:    ticketID,
 		DMChannel: "damai@damaih5_h5",
 	}
-	return structs.Map(form), nil
+	return structs.Map(form)
 }
 
 type TicketInfoParams struct{}
 
-func (p *TicketInfoParams) build() (map[string]interface{}, error) {
+func BuildTicketInfoParams() map[string]interface{} {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["api"] = "mtop.alibaba.damai.detail.getdetail"
 	params["v"] = "1.2"
-	return params, nil
+	return params
 }
 
 type SimpleSku struct {

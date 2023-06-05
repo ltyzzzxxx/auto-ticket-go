@@ -1,0 +1,14 @@
+accounts:
+  - cookie: "_bl_uid=LOlm6ih5h8edwO7y29Xa0p6n1UFd; cna=gupzGlh4QlUCAXEaZnOgOyjx; _samesite_flag_=true; cookie2=126645d18589b84ee2c64dd03f4de540; t=f3a98a7ba93ea17e7885f1c16020e533; _tb_token_=e8e765f8a775f; xlly_s=1; ab.storage.deviceId.a9882122-ac6c-486a-bc3b-fab39ef624c5=%7B%22g%22%3A%223b956199-bd4b-80b4-2e2b-ed511446070e%22%2C%22c%22%3A1685879643125%2C%22l%22%3A1685879643125%7D; _hvn_login=18; munb=2215564693912; csg=177d427c; l=fBMuGAV4NcIuDtsdBO5aourza779uIRfhsPzaNbMiIEGa6CNtFwHcNC_JbxHSdtjgTCEWHxygJ-c1d3J7N4NixDDBeAHjt4KnxvO0MP9K; tfstk=cPAfBV4W_hdP4fGgiigyOV5ov7CNZpVfzqsklDOFtyzUXd8fisNFAWPeSuCNWa1..; usercode=224984435; dm_nickname=%E9%BA%A6%E5%AD%904bACC; havanaId=2215564693912; _m_h5_tk=93d7bb24de97ccfe5bcf6bf4c867f769_1685908099879; _m_h5_tk_enc=8bbcb3da0f02eac788addee869f0834b; isg=BEVFs2AXjbhwl6lkzBHNo53WVId_AvmU_CoNjkeqsXyL3mRQD1DOZu_07AIonhFM"
+    remark: 账号1
+    interval: 30
+    earliestsubmittime: 15
+    ticket:
+      # 需要抢购的门票ID, 门票详情页URL中的itemId.如:https://m.damai.cn/damai/detail/item.html?utm=&itemId=710947802955
+      id: "719062769469"
+      # 需要抢购的门票数量
+      num: 2
+      # 需要抢购的场次序号.
+      sessions: 2
+      # 需要抢购的票档序号
+      grade: 2

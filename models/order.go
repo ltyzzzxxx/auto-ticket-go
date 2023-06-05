@@ -8,7 +8,7 @@ import (
 
 type OrderParams struct{}
 
-func (op *OrderParams) build() (map[string]interface{}, error) {
+func BuildOrderParams() (map[string]interface{}, error) {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["v"] = "4.0"
@@ -23,7 +23,7 @@ func (op *OrderParams) build() (map[string]interface{}, error) {
 
 type OrderForm struct{}
 
-func (of OrderForm) build(itemID *string, skuID *string, byNum int) (map[string]interface{}, error) {
+func BuildOrderForm(itemID *string, skuID *string, byNum int) (map[string]interface{}, error) {
 	extParams := map[string]interface{}{
 		"channel":        "damai_app",
 		"damai":          "1",
@@ -68,31 +68,31 @@ type OrderInfoHierarchy struct {
 }
 
 type OrderInfoLinkageCommon struct {
-	QueryParams     string `json:"queryParams"`
-	Compress        bool   `json:"compress"`
-	ValidateParams  string `json:"validateParams"`
-	Structures      string `json:"structures"`
-	SubmitParams    string `json:"submitParams"`
+	QueryParams    string `json:"queryParams"`
+	Compress       bool   `json:"compress"`
+	ValidateParams string `json:"validateParams"`
+	Structures     string `json:"structures"`
+	SubmitParams   string `json:"submitParams"`
 }
 
 type OrderInfoLinkage struct {
-	Input     []string                `json:"input"`
-	Request   []string                `json:"request"`
-	Signature string                  `json:"signature"`
-	Common    OrderInfoLinkageCommon   `json:"common"`
+	Input     []string               `json:"input"`
+	Request   []string               `json:"request"`
+	Signature string                 `json:"signature"`
+	Common    OrderInfoLinkageCommon `json:"common"`
 }
 
 type OrderInfo struct {
-	Data          json.RawMessage   `json:"data"`
-	Endpoint      OrderInfoEndpoint `json:"endpoint"`
-	Global        OrderInfoGlobal   `json:"global"`
-	Hierarchy     OrderInfoHierarchy `json:"hierarchy"`
-	Linkage       OrderInfoLinkage   `json:"linkage"`
+	Data      json.RawMessage    `json:"data"`
+	Endpoint  OrderInfoEndpoint  `json:"endpoint"`
+	Global    OrderInfoGlobal    `json:"global"`
+	Hierarchy OrderInfoHierarchy `json:"hierarchy"`
+	Linkage   OrderInfoLinkage   `json:"linkage"`
 }
 
-type SubmitOrderParams struct {}
+type SubmitOrderParams struct{}
 
-func (s *SubmitOrderParams) build(submitref string) (map[string]interface{}, error) {
+func BuildSubmitOrderParams(submitref string) (map[string]interface{}, error) {
 	commonParams := Build()
 	params := structs.Map(&commonParams)
 	params["api"] = "mtop.trade.order.create.h5"
@@ -107,4 +107,3 @@ func (s *SubmitOrderParams) build(submitref string) (map[string]interface{}, err
 	params["tb_eagleeyex_scm_project"] = "20190509-aone2-join-test"
 	return params, nil
 }
-
